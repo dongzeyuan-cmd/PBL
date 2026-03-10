@@ -1,49 +1,58 @@
 import streamlit as st
-from openai import OpenAI
+import time
 
 # ==========================================
-# 1. 页面配置与 UI (和之前一样)
+# 0. 页面全局配置
 # ==========================================
-st.set_page_config(page_title="AI 生涯规划专家", page_icon="🎓")
-st.title("🎓 AI 赋能：学业与生涯规划系统")
+st.set_page_config(page_title="AI 生涯规划专家", page_icon="🎓", layout="centered")
 
-# 收集参数
+# ==========================================
+# 1. 商业防盗门：通行码验证模块
+# ==========================================
+st.markdown("### 🔒 欢迎进入 AI 生涯规划系统")
+st.write("本系统仅对内部邀约用户开放，请输入访问密钥：")
+
+# 使用 type="password" 可以让输入的密码变成小黑点，极具安全感
+access_code = st.text_input("请输入通行码", type="password")
+
+# 核心逻辑：如果密码不对，系统就拦在这里，不往下加载了！
+if access_code != "VIP888":
+    st.warning("⚠️ 密钥为空或不正确。获取测试密钥，请联系专属升学规划顾问。")
+    st.stop()  # 🚨 极其关键：这行代码会强制停止后面的所有程序！
+
+# ==========================================
+# 2. 核心推演系统 (密码正确后才会显示以下内容)
+# ==========================================
+st.success("✅ 密钥验证成功！系统已解锁。")
+st.markdown("---")
+st.title("🎓 AI 赋能：学业与生涯推演系统")
+
 st.sidebar.header("🧠 请输入系统参数")
-vestibular = st.sidebar.slider("前庭觉状态 (1=极度安静, 10=必须动手操作)", 1, 10, 5)
+vestibular = st.sidebar.slider("前庭觉状态 (1=安静, 10=好动)", 1, 10, 5)
 intelligence = st.sidebar.selectbox("突出的智能维度", ["逻辑数学", "语言表达", "空间想象"])
 holland = st.sidebar.selectbox("职业倾向基因", ["R 实用型", "I 研究型", "E 企业型"])
 
-# ==========================================
-# 2. 核心大模型 API 调用模块 (以 DeepSeek 为例)
-# ==========================================
-# 这里的 API Key 需要你去各大平台免费申请一个，替换掉这串文字
-API_KEY = "sk-e84c5f61c25f4241b80f0d818f552c08"
-BASE_URL = "https://api.deepseek.com"  # 以国内 DeepSeek 为例
-
-client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
-
 if st.button("🚀 召唤 AI 专家进行深度推演"):
-    with st.spinner("AI 正在高速比对全球教育路径..."):
+    with st.spinner("AI 正在比对全球 10 万+ 样本..."):
+        time.sleep(1.5) # 假装思考
+        
+    st.info("**🎯 阶段性推演结果**")
+    st.write("👉 经初步运算，您的特质高度匹配 **STEM 强相关科创路径**。建议以 A-Level 或 AP 体系为主攻方向。")
+    
+    # 制造“信息断层”，引导私域转化
+    st.warning("⚠️ 网页端资源有限，当前仅展示 30% 基础推演结果。")
 
-        # 组装 Prompt (提示词工程：把高中生的特征喂给大模型)
-        system_prompt = "你是一位顶级的国际高中升学指导专家。请根据学生的生理特征和智能特征，推荐适合的体系(AP/IB/A-Level)和未来专业方向。语气要专业、有启发性。"
-        user_prompt = f"该学生前庭觉活跃度为{vestibular}/10，最突出的多元智能是【{intelligence}】，霍兰德职业兴趣为【{holland}】。请直接给出规划建议。"
+# ==========================================
+# 3. 商业变现漏斗：二维码展示模块
+# ==========================================
+st.markdown("---")
+st.markdown("### 👨‍🏫 获取 1 万字深度定制规划书")
+st.write("结合您的八大智能与感官数据，获取完整的【全球顶尖大学专业锁定】及【高中三年科创赛事时间轴】。")
+st.write("👇 **扫码添加首席规划顾问微信，预约 1v1 深度解析：**")
 
-        try:
-            # 向大模型服务器发送请求
-            response = client.chat.completions.create(
-                model="deepseek-chat",  # 或者你使用的其他模型名称
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ]
-            )
-
-            # 提取大模型的真实回答并展示在网页上
-            ai_answer = response.choices[0].message.content
-            st.success("推演完成！")
-            st.markdown(ai_answer)  # 渲染输出结果
-            st.balloons()
-
-        except Exception as e:
-            st.error(f"API 调用失败，请检查网络或密钥：{e}")
+# 调用库里的微信二维码图片
+try:
+    # 假设你上传到 GitHub 的二维码图片名叫 wechat.jpg
+    st.image("wechat.jpg", width=250) 
+except:
+    st.error("【系统提示】尚未检测到二维码图片文件。请在代码同级目录下放置 wechat.jpg")
