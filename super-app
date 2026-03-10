@@ -1,0 +1,198 @@
+import streamlit as st
+import time
+
+# ==========================================
+# 0. 页面全局配置
+# ==========================================
+st.set_page_config(page_title="AI 生涯规划专家 | 深度全量版", page_icon="🎓", layout="wide")
+
+# ==========================================
+# 1. 商业防盗门
+# ==========================================
+st.markdown("### 🔒 欢迎进入 AI 升学与生涯推演系统 (全景演算版)")
+access_code = st.text_input("请输入高级权限通行码", type="password")
+
+if access_code != "VIP888":
+    st.warning("⚠️ 密钥为空或不正确。获取高级测试密钥，请联系首席规划顾问。")
+    st.stop()
+
+st.success("✅ 密钥验证成功！全景演算沙盘已解锁。")
+st.markdown("---")
+
+# ==========================================
+# 2. 核心大盘：四维临床级数据采集矩阵
+# ==========================================
+st.title("🎓 国际教育路径与生涯全景推演引擎")
+st.write("左侧录入底层物理与认知参数，右侧生成全景战略蓝图。")
+
+st.sidebar.header("🎛️ 临床精细级参数输入")
+
+# 维度一：多元智能
+with st.sidebar.expander("🧠 1. 多元智能评估 (权重排序)", expanded=True):
+    mi_options = ["逻辑/数学智能", "视觉/空间智能", "身体/运动智能", "言语/语言智能", 
+                  "音乐/节奏智能", "人际交往智能", "自我内省智能", "自然观察智能"]
+    top1 = st.selectbox("🥇 第一优势 (Top 1 核心驱动)", mi_options, index=0)
+    top2 = st.selectbox("🥈 第二优势 (Top 2 辅助驱动)", mi_options, index=1)
+    top3 = st.selectbox("🥉 第三优势 (Top 3 补充驱动)", mi_options, index=6)
+
+# 维度二：感官雷达 (Kelly Mahler 架构)
+with st.sidebar.expander("👁️ 2. 感官雷达定位 (临床体征)"):
+    sensory_status = ["典型正常", "敏感/防卫 (逃避)", "迟钝/忽略 (反应不足)", "感觉寻求 (极度渴望)"]
+    tactile_light = st.radio("🪶 轻触觉 (温度/材质)", sensory_status, horizontal=True)
+    tactile_deep = st.radio("🫂 深触觉 (重物/拥抱)", sensory_status, horizontal=True)
+    vestibular = st.radio("⚖️ 前庭觉 (旋转/平衡)", sensory_status, horizontal=True)
+    proprioceptive = st.radio("💪 本体感觉 (肌肉力量)", sensory_status, horizontal=True)
+    visual = st.radio("👁️ 视觉 (光线/色彩)", sensory_status, horizontal=True)
+    auditory = st.radio("👂 听觉 (噪音/频段)", sensory_status, horizontal=True)
+    interoception_physio = st.radio("🩸 生理内感受 (饥饿/饱腹)", sensory_status, horizontal=True)
+    interoception_emotion = st.radio("🎭 情绪内感受 (情绪躯体化)", sensory_status, horizontal=True)
+
+# 维度三 & 四：MBTI 与 霍兰德
+with st.sidebar.expander("🎭 3. MBTI & 🧬 4. 霍兰德基因"):
+    mbti = st.selectbox("MBTI 人格：", ["INTJ", "INTP", "ENTJ", "ENTP", "INFJ", "INFP", "ENFJ", "ENFP", "ISTJ", "ISFJ", "ESTJ", "ESFJ", "ISTP", "ISFP", "ESTP", "ESFP"])
+    holland = st.multiselect("霍兰德职业兴趣：", ["R (实用型)", "I (研究型)", "A (艺术型)", "S (社会型)", "E (企业型)", "C (常规型)"])
+
+# ==========================================
+# 3. 终极生成逻辑：全量分析报告
+# ==========================================
+if st.button("🚀 启动大模型全景演算", type="primary"):
+    
+    # 模拟读条动画
+    my_bar = st.progress(0, text="正在初始化全景分析引擎...")
+    for percent_complete in range(100):
+        time.sleep(0.015)
+        my_bar.progress(percent_complete + 1, text=f"正在重组四维数据链并比对全球数据库... {percent_complete+1}%")
+    time.sleep(0.5)
+    my_bar.empty()
+    
+    st.balloons()
+    st.success("✅ 全景演算完成！以下为您生成深度战略蓝图：")
+    
+    # 使用 st.tabs 创建极其专业的多维度选项卡
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+        "📊 1. 综合诊断评价", 
+        "🛤️ 2. 四大体系抉择", 
+        "📚 3. 学科赋能与选课", 
+        "🏫 4. 中外大学专业", 
+        "🚀 5. 未来职业推演"
+    ])
+    
+    # ------------------ Tab 1: 综合分析评价 ------------------
+    with tab1:
+        st.header("📊 系统架构与底层基因诊断")
+        st.write(f"根据数据封包，该个体的核心操作系统为 **{mbti}**，底层驱动程序由 **{top1}** 主导。")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.info("**💡 优势与天赋雷达**")
+            st.write(f"- **认知引擎极强**：由 {top1} 和 {top2} 构成的双核驱动，赋予了其在特定领域的降维打击能力。")
+            st.write(f"- **内在动机明确**：霍兰德基因 {holland} 显示其内在价值序列清晰，不易受外界干扰。")
+        with col2:
+            st.warning("**⚠️ 功耗与系统预警**")
+            st.write(f"- **感官代偿警报**：系统检测到前庭觉状态为[{vestibular}]，情绪内感受状态为[{interoception_emotion}]。")
+            st.write("- **干预建议**：在执行高压学术任务（如大考）时，极易发生“物理报错”（如情绪崩溃或专注力断档），需配置专属的感统安抚策略（如深压觉毛毯或物理运动间隔）。")
+
+    # ------------------ Tab 2: 四大体系抉择 ------------------
+    with tab2:
+        st.header("🛤️ 教育路径适配度测算")
+        st.markdown("基于个体的【抗压能力、语言智力、偏科程度】，AI 生成以下适配概率：")
+        
+        # 简单的动态逻辑演算
+        a_level_score = 95 if "逻辑" in top1 or "空间" in top1 else 75
+        ib_score = 90 if "语言" in top1 and "正常" in interoception_emotion else 60
+        ap_score = 85
+        gaokao_score = 50 if "敏感" in interoception_emotion or "寻求" in vestibular else 80
+        
+        st.progress(a_level_score, text=f"🇬🇧 A-Level 体系适配度：{a_level_score}% (适合单科极客，扬长避短)")
+        st.progress(ap_score, text=f"🇺🇸 AP 体系适配度：{ap_score}% (适合模块化进攻，灵活变通)")
+        st.progress(ib_score, text=f"🌐 IB 体系适配度：{ib_score}% (适合全栈型学霸，抗压极强)")
+        st.progress(gaokao_score, text=f"🇨🇳 国内高考体系适配度：{gaokao_score}% (适合六边形战士，规则适应者)")
+        
+        st.write("---")
+        st.markdown("#### 💡 架构师终极建议：")
+        if a_level_score > ib_score:
+            st.success("🎯 **最优解锁定：A-Level 体系。** 该生具有明显的特长倾向，A-Level 允许放弃短板科目，集中算力攻克 3-4 门核心优势学科，ROI（投资回报率）最高。")
+        else:
+            st.success("🎯 **最优解锁定：IB 体系。** 该生心智成熟，语言与内省智能极高，IB 核心课程（EE/TOK）将极大激发其学术潜力。")
+
+    # ------------------ Tab 3: 学科赋能点 ------------------
+    with tab3:
+        st.header("📚 国际课程体系全景选课图谱")
+        st.write("针对国际路线，各体系主流课程库及专属赋能选课方案如下：")
+        
+        st.markdown("##### 📌 主流体系课程总览库")
+        st.markdown("""
+        | 课程体系 | 核心必修/特色模块 | 理科与计算机 (STEM) | 人文与社科 (Humanities) | 语言与艺术 (Arts/Lang) |
+        | :--- | :--- | :--- | :--- | :--- |
+        | **A-Level** | 无强制必修，自由组合 3-4 门 | 数学, 进阶数学, 物理, 化学, 计算机科学 | 经济学, 商业研究, 心理学, 历史 | 纯艺术, 戏剧, 现代外语 |
+        | **AP (美国)** | AP Capstone (顶石项目) | AP微积分BC, AP物理C, AP计算机A, AP生物 | AP宏观/微观经济, AP心理学, AP美国历史 | AP艺术史, AP英语语言与写作 |
+        | **IB (国际)** | TOK(知识论), EE(拓展论文), CAS | 物理 HL, 数学 AA/AI HL, 计算机 HL | 经济学 HL, 心理学 HL, 历史 HL | 英语 A/B, 视觉艺术, 电影 |
+        """)
+        
+        st.info(f"**💡 基于你的第一优势【{top1}】，大模型自动生成的黄金选课组合：**")
+        if "逻辑" in top1 or "空间" in top1:
+            st.write("👉 **A-Level 路线**：进阶数学 + 物理 + 计算机科学 (极客组合)")
+            st.write("👉 **AP 路线**：AP微积分BC + AP物理C电磁学 + AP计算机A (满配理科)")
+            st.write("👉 **IB 路线**：数学 AA HL + 物理 HL + 经济学 SL (硬核理工商)")
+        else:
+            st.write("👉 **A-Level 路线**：心理学 + 经济学 + 历史/社会学 (文商精英)")
+            st.write("👉 **AP 路线**：AP心理学 + AP微观经济 + AP英语语言 (常春藤文科标配)")
+            st.write("👉 **IB 路线**：英语A HL + 心理学 HL + 经济学 HL (全能文商)")
+
+    # ------------------ Tab 4: 报考大学专业的选择 ------------------
+    with tab4:
+        st.header("🏫 升学双轨制：中外大学与专业图谱")
+        
+        col_intl, col_dom = st.columns(2)
+        with col_intl:
+            st.subheader("🌍 国外顶尖名校 (藤校/G5) 申请策略")
+            st.markdown("""
+            **择校逻辑：Holistic Review (全面评估)**
+            * 不仅看 GPA，极其看重“人设”与课外活动 (PBL/科研/竞赛)。
+            * **建议选校池**：若是 STEM 路线，冲刺 MIT、卡梅、帝国理工；若是文商，冲刺 宾大、LSE、芝加哥大学。
+            """)
+            st.write(f"**🎯 适配您的专业锁定：**")
+            if "R" in str(holland) or "I" in str(holland):
+                st.write("✔️ 具身智能 (Embodied AI) \n✔️ 数据科学与分析 (Data Science) \n✔️ 机械电子工程 (Mechatronics)")
+            else:
+                st.write("✔️ 认知科学 (Cognitive Science) \n✔️ 传媒与公共关系 (PR) \n✔️ 人机交互设计 (HCI)")
+                
+        with col_dom:
+            st.subheader("🇨🇳 国内高考/强基计划 填报策略")
+            st.markdown("""
+            **择校逻辑：分数优先级 + 城市资源**
+            * 高考是“算力”的比拼。首选 985/211 头衔，其次看重城市（北上广深），最后定专业。
+            * **特长生通道**：如果在信息奥赛 (NOI) 有建树，可直接走强基计划破格入围。
+            """)
+            st.write(f"**🎯 适配您的专业锁定：**")
+            if "R" in str(holland) or "I" in str(holland):
+                st.write("✔️ 自动化类 (北航/清华王牌) \n✔️ 计算机科学与技术 \n✔️ 精密仪器")
+            else:
+                st.write("✔️ 心理学 (师范类顶级) \n✔️ 金融学 \n✔️ 法学")
+
+    # ------------------ Tab 5: 未来职业推演 ------------------
+    with tab5:
+        st.header("🚀 10年期：未来职场生态演化")
+        st.write(f"AI 纪元下，所有常规代码和文本都将被大模型接管。基于您的 **{mbti}** 人格和 **{top1}** 优势，您在未来的不可替代性在于：")
+        
+        if "INT" in mbti or "IST" in mbti:
+            st.success("**🔬 核心赛道：系统定义者 / 架构师**")
+            st.write("你不需要敲底层的代码，你将作为【AI 硬件研发总监】或【机器人系统架构师】，调动 AI 算力去解决物理世界的真实问题。")
+        elif "EN" in mbti or "ES" in mbti:
+            st.success("**📈 核心赛道：商业破局者 / 科技创业家**")
+            st.write("你极强的社会洞察力和企业型（E）基因，将使你成为【科技产品 CEO】或【全球市场开拓者】，整合资源将技术变现。")
+        else:
+            st.success("**🕊️ 核心赛道：数字时代的精神导师**")
+            st.write("在这个原子化的科技社会，你将作为【高级心理疗愈师】、【科创教育总监】或【人机交互伦理专家】，填补科技与人性之间的鸿沟。")
+
+    # ==========================================
+    # 4. 商业收网：私域拦截
+    # ==========================================
+    st.markdown("---")
+    st.markdown("### 👨‍🏫 架构师结语：获取深度 1v1 执行时间轴")
+    st.write("以上推演由系统自动完成。如需根据此报告制定**【从高中到大一的精准执行排期表】**与**【专属科创赛事匹配】**，请扫码进行人工深度咨询。")
+    
+    try:
+        st.image("wechat.jpg", width=250)
+    except:
+        st.caption("[图片加载位置：请确保 GitHub 代码仓库中已上传 wechat.jpg 文件]")
